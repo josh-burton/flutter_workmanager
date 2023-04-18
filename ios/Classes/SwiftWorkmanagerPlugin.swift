@@ -372,6 +372,7 @@ extension SwiftWorkmanagerPlugin: FlutterPlugin {
         }
         UserDefaultsHelper.storeCallbackHandle(handle)
         UserDefaultsHelper.storeIsDebug(isInDebug)
+        result(true)
     }
 
     private func registerPeriodicTask(arguments: [AnyHashable: Any], result: @escaping FlutterResult) {
