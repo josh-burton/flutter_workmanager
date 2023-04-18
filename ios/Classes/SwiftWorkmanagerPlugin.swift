@@ -363,14 +363,7 @@ extension SwiftWorkmanagerPlugin: FlutterPlugin {
             print("Workmanager Info: Please run on real device!" +
                 "No backgroundtask is automatic called in the simulator!!")
         #endif
-        let backgroundRefreshAvailable = checkBackgroundRefreshAuthorisation(result: result)
-        if backgroundRefreshAvailable != BackgroundAuthorisationState.available {
-            UIApplication.shared.open(URL(
-                string: UIApplication.openSettingsURLString)!,
-            options: [:],
-            completionHandler: nil)
-            return
-        }
+
         let method = ForegroundMethodChannel.Methods.Initialize.self
         guard let isInDebug = arguments[method.Arguments.isInDebugMode.rawValue] as? Bool,
               let handle = arguments[method.Arguments.callbackHandle.rawValue] as? Int64 else {
@@ -550,7 +543,7 @@ extension SwiftWorkmanagerPlugin {
     ) -> Bool {
         let worker = BackgroundWorker(
             mode: .backgroundProcessingTask,
-            inputData: "", 
+            inputData: "",
             flutterPluginRegistrantCallback: SwiftWorkmanagerPlugin.flutterPluginRegistrantCallback
         )
         return worker.performBackgroundRequest(completionHandler)
